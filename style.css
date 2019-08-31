@@ -1,0 +1,88 @@
+body {
+  background-color: #DFDFE7;
+}
+
+.top {
+  text-align: center;
+}
+
+.title{
+  font-size: 44px;
+  font-family: Arial;
+  color: #FFFFFF;
+  margin-top: -250px;
+  margin-left: -950px;
+
+}
+
+.name{
+  font-family: Arial;
+  color: #FFFFFF;
+  margin-top: -30px;
+  margin-left: -950px;
+}
+
+.list{
+  height: 100px;
+  width: 450px;
+  /*border: 2px solid black;*/
+  margin-top: 250px;
+}
+
+.header {
+  width: 103%;
+  height: 300px;
+  background: url('space.jpg');
+  background-size: cover;
+  margin-top: -30px;
+  margin-left: -10px;
+}
+
+.menu{
+  margin-top: 120px;
+}
+
+.menu {
+  float: right;
+}
+
+.menu ul {
+  list-style: none;
+  margin: 8px;
+  padding: 0
+}
+
+.menu li {
+  display: inline-block;
+  padding: 0 20px;
+}
+
+.menu a {
+  text-decoration: none;
+  color: #FFFFFF;
+  text-transform: uppercase;
+  font-size: 14px;
+  font-weight: bold;
+  font-family: 'Georgia';
+}
+
+.menu a:hover {
+  text-decoration: underline;
+}
+
+#blog1{
+  margin-left: 20px;
+  margin-top: 250px;
+  width: 75%;
+}
+
+.blog1 h3{
+  margin-top: -16px;
+  font-style: italic;
+}
+
+.blog1 p{
+  margin-left: 10px;
+  margin-top: -2px;
+  text-align: left;
+}
