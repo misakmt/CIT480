@@ -11,3 +11,4 @@ It would be helpful to explain what the command "scp" is actually doing. 'scp' c
 While creating a user account and home directory on the container, students should know why they are running chown --> what is the point of it and how does it differ from chmod. Also, what happens to root user afterwards?
 
 There is no explanation on why or how configuring accounts/directories on the cit160 container and sandbox server occur. For example, how we transfer and set up 'profile', which is literally a script used by professor Fitzgerald in order to produce the reports. I myself was confused on the automation and set up until I realized 'class_setup' is a function put together in the bash script to use the scp command.
+<a href="https://docs.google.com/document/d/18iERWd-rDpZTVal8X1FPDYeAOec2QpPzXktIntxgRu0/edit"> Click Here To View Lab Document/Tutorial </a>
