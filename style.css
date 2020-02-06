@@ -116,52 +116,18 @@ body{
 
 ////////////////////
 /*BLOGS BEGIN HERE*/
-#blog0{
+.blogs{
   margin-left: 20px;
   margin-top: 100px;
   width: 75%;
 }
 
-#blog0 h3{
+h3{
   margin-top: -16px;
   font-style: italic;
 }
 
-#blog0 p{
-  margin-left: 10px;
-  margin-top: -2px;
-  text-align: left;
-}
-
-#blog1{
-  margin-left: 20px;
-  margin-top: -10px;
-  width: 75%;
-}
-
-#blog1 h3{
-  margin-top: -16px;
-  font-style: italic;
-}
-
-#blog1 p{
-  margin-left: 10px;
-  margin-top: -2px;
-  text-align: left;
-}
-
-#blog2 {
-  margin-left: 20px;
-  margin-top: -10px;
-  width: 75%;
-}
-
-#blog2 h3{
-  margin-top: -16px;
-  font-style: italic;
-}
-
-#blog2 p{
+p{
   margin-left: 10px;
   margin-top: -2px;
   text-align: left;
