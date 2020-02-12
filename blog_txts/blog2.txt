@@ -50,15 +50,3 @@ The way I decided to put my Pi to use, was by using it as a VPN and mounting an 
 	• If this step is not done, establishing connection will not resolve because Public IP will not know where to point to
 
 Next time I will talk about about how VPN comes in handy while the Raspberry Pi is connected to an external hard drive.
-
-
-
-
-
-
-
-
-
-
-
-
