@@ -1,3 +1,64 @@
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+Having a Raspberry Pi laying around can be handy sometimes. Considering its price and multi-use functionality definitely makes it worth it. Many individuals use it for learning, gaming, automation, and many more creative projects. The specific model I have (Pi 3 Model B) consists of 1GB of RAM and a Quad Core 1.2GHz 64bit CPU (ARM Architecture). So as it will not perform heavy tasks for an every-day user, it will definitely	be able to run lightweight applications such as word-processing.
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+The way I decided to put my Pi to use, was by using it as a VPN and mounting an external drive to it for extra storage. This way I can access files remotely from anywhere, as well as tunnel my network traffic to my home network instead of public. I will break down the steps below:
+
+1) You will need to find an Operating System which works on 64bit ARM architecture, since the Raspberry Pi cannot take any regular linux. Easiest solution is to install Raspbian (what it is actually intended for).
+
+2) The first step as usual will be to check for and run updates
+	• apt-get update && apt-get upgrade
+
+3) Pull the OpenVPN installer script from GitHub. This script is set up in a way to not only install OpenVPN, but also walkthrough setup
+	• curl -O https://raw.githubusercontent.com/angristan/openvpn-install/master/openvpn-install.sh
+
+4) Give Permissions to execute and run the script
+	• chmod u+x openvpn-install.sh
+
+5) The installer will prompt you about 
+	1. Public and Private IP (make sure to set a static local IP)
+	2. Which port you want OpenVPN to listen on (I use 443)
+	3. UDP or TCP (I use TCP)
+	4. DNS Resolver (I use Google)
+	5. Compression Algorithm? (y/n and which one? [not recommended])
+	6. Cipher for data channel (ex: AES-128 (recommended), AES-256 GCM or CBC) 
+	7. What type of certificate to use (ECDSA [recommended] or RSA)
+	8. Cipher for control channel (You can go for recommended option here unless you want a more secure option.
+	9. Type of Diffie-Hellman key to use (ECDH or DH)
+		• If DH, choose what size key you want to use
+		• If ECDH, choose curve type
+	10. Choose digest algorithm for Hash-based message authentication code (HMAC) 
+	11. Lastly, you can choose to add additional security to control channel by choosing between tis-auth or xls-crypt
+
+   If you are not sure, go with recommended options. This initial phase of installation is  crucial, as the configuration files you create after will be based off of these settings.
+
+
+6) After setup is done, we can access new options in the script by running it again.
+	• Now we can add and remove clients, as well as uninstall OpenVPN
+
+7) Selecting option 1 will allow us to add new users (clients)
+	It will ask for configuration name and if you want to protect the file with a password
+
+8) After set up is done, you can transfer over the config file to your client device.
+	You may use the following applications to import config files and establish connection:
+	• Mac - Tunnelblick
+	• Windows - OpenVPN
+	• Linux - OpenVPN (CLI)
+	• iOS & Android - OpenVPN Connect
+
+9) If you would like to change last minute settings, you can edit the configuration file and change setting from TAP vs TUN or change port number
+
+10) The final and most important step is to edit router settings. Make sure to port forward the port you are using for OpenVPN to the Internal IP Address of the Raspberry Pi.
+	• If this step is not done, establishing connection will not resolve because Public IP will not know where to point to
+
+Next time I will talk about about how VPN comes in handy while the Raspberry Pi is connected to an external hard drive.
+
+
+
+
+
+
+
+
+
+
+
+
