@@ -1,4 +1,4 @@
-Having a Raspberry Pi laying around can be handy sometimes. Considering its price and multi-use functionality definitely makes it worth it. Many individuals use it for learning, gaming, automation, and many more creative projects. The specific model I have (Pi 3 Model B) consists of 1GB of RAM and a Quad Core 1.2GHz 64bit CPU (ARM Architecture). So as it will not perform heavy tasks for an every-day user, it will definitely	be able to run lightweight applications such as word-processing.
+Having a Raspberry Pi laying around can be handy sometimes. Considering its price and multi-use functionality definitely makes it worth it. Many individuals use it for learning, gaming, automation, and many more creative projects. The specific model I have (Pi 3 Model B) consists of 1GB of RAM and a Quad Core 1.2GHz 64bit CPU (ARM Architecture). So as it will not perform heavy tasks for an every-day user, it will definitely be able to run lightweight applications such as word-processing.
 
 The way I decided to put my Pi to use, was by using it as a VPN and mounting an external drive to it for extra storage. This way I can access files remotely from anywhere, as well as tunnel my network traffic to my home network instead of public. I will break down the steps below:
 
@@ -28,7 +28,8 @@ The way I decided to put my Pi to use, was by using it as a VPN and mounting an 
 	10. Choose digest algorithm for Hash-based message authentication code (HMAC) 
 	11. Lastly, you can choose to add additional security to control channel by choosing between tis-auth or xls-crypt
 
-   If you are not sure, go with recommended options. This initial phase of installation is  crucial, as the configuration files you create after will be based off of these settings.
+   If you are not sure, go with recommended options. 
+   This initial phase of installation is  crucial, as the configuration files you create after will be based off of these settings.
 
 
 6) After setup is done, we can access new options in the script by running it again.
@@ -38,7 +39,7 @@ The way I decided to put my Pi to use, was by using it as a VPN and mounting an 
 	It will ask for configuration name and if you want to protect the file with a password
 
 8) After set up is done, you can transfer over the config file to your client device.
-	You may use the following applications to import config files and establish connection:
+	Applications to import config files and establish connection:
 	• Mac - Tunnelblick
 	• Windows - OpenVPN
 	• Linux - OpenVPN (CLI)
