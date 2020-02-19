@@ -1,0 +1,68 @@
+Setting up a Samba Share might be a little more straight forward for most users, although it still has some configuring to do, in order for it to properly work. In order to make my VPN a bit more useful, I decided to use it to use it as a network location. Since my Raspberry Pi only has 32gb of storage (via the sd card it boots off of), I decided to attach it to an external hard drive. Configuring that will be explained later in the blog.
+
+At this point, your Pi should already have a static internal IP and have SSH enabled.
+To proceed with the samba set up:
+	• sudo su
+	• apt-get update
+	• apt-get upgrade
+	• apt-get install samba samba-common-bin
+
+1) Now we would need to edit the configuration file so it supports our setup and needs.
+	• cd /etc/samba
+	• File is located in this path as smb.conf
+
+2) We can make a copy of this file and save it as a backup:
+	• cp smb.conf smb.conf.backup
+	• vi/vim/nano smb.conf & edit away
+
+3) There are many ways to set up Samba, but I will state the most common / most useful:
+	• Creating a directory somewhere on the machine to be shared
+		-ex: /SharedFiles
+	• Access to own home directory
+	• Access to a directory which is technically a mounted location (External Drive)
+
+4) To make a share folder:
+	• Specify a name in brackets
+		-ex: [MyShare]
+	• Return, space/tab and state requirements
+		path = /directory
+		browsable = yes
+		writable = yes
+		guest ok = no
+		read only = no
+		create mask = 0755
+		directory mask = 0755
+
+	• The same setting applies for an external drive, however you would have to make sure
+		that the drive is mounted and accessible:
+		-ex: /mnt/volume1
+
+5) The most simple and common way is to make home directories accessible:
+	• This is useful because it can be accessed by multiple unique users on the machine
+	• If settings are done correctly, no one but that user can access their home directory
+	• This setting can be found under the [homes] section
+		-ex:    comment = Home directories
+			read only = no
+			browsable = no
+
+6) Lastly, you would need to add users and a password to use Samba. Samba uses the same users which can be found on the unix machine, it just has to be configured to smb as well.
+	• sudo smbpasswd -a PiUser
+	• set password
+
+7) Restart Samba
+	• sudo /etc/init.d/samba restart
+	or
+	• sudo systemctl restart smbd.service
+
+8) Now preferably using a different machine on the same network, try connecting to share:
+	•smb://192.168.x.x/PiUser
+	•smb://192.168.x.x/MyShare
+	•smb://192.168.x.x/Volume1
+
+	- When prompted, enter Username and Password for that user account
+	
+	* For this step, you may also use your hostname to access machine instead of IP Address 
+
+9) Now you may share files between unix, Mac, and Windows machines
+
+10) You may also do this from anywhere as long as you VPN into your network before trying step 8
