@@ -1,0 +1,18 @@
+To begin with, SSH is already a secure protocol in which users can send commands to another machine remotely through command line. However not all parts of this communication is fully secure. SSH in the beginning uses a verification method to see if is part of its known hosts (if it is the first time, it will go ahead and create a public key for it). This key is known more as a "fingerprint" and shows IP address and/or host name, basically used to identify the server. At this point, it is time for both machines to come together and create a session key (symmetric key) using a form of diffie-hellman, so it can encrypt all communication during connection. Lastly, it checks to see if the current users private key matches the public key found in its authorized keys. If this is successful, and the password the user enters is also correct, then the connection will successfully be established and you will now be logged onto the server/remote machine.
+To summarize in simpler terms: 
+1) The client authenticates the server using the known_hosts file. 
+2) Session key is created.
+3) Server authenticates the client using the authorized_keys file.
+
+With a few simple steps, SSH can be even more secure with the use of keys/certificates. It makes the process safer and perhaps faster.
+
+The first step would be to create an RSA key pair. This can be done by running ssh-keygen.
+	• ssh-keygen -t rsa
+	• Enter password (leave empty if you do not want to protect key with passphrase)
+	• Choose file to store it in (~/.ssh/id_rsa)
+	• The file that says id_rsa is your private key, however we still need to copy the
+		id_rsa.pub (public key) to the server (same location: ~/.ssh/)
+
+The second step would be to disable password access. The easiest way to do this is to navigate to edit the ~/.ssh/config file and change PasswordAuthentication to "no". Disabling this makes sure that no one can brute force a password and log into your server.
+
+Using this practice will also protect users against a man in the middle attack through network or even a local attack using a key logger. Since you are using a specific private key and matching it to a public key, no one can access the server unless they steal/mimic this key.
