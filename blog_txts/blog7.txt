@@ -1,0 +1,93 @@
+For simplicity, we'll work with private IP addresses. Like any IPv4 address, consisting of 32-bits, subnetting would be the same. However, the following addresses will never be seen/used publicly on the internet; they are solely reserved for internal use, behind NAT/PAT.
+
+Private IP Addresses:
+•10.0.0.0 - 10.255.255.255 (/8 is largest CIDR)
+•172.16.0.0 - 172.31.255.255 (/12 is largest CIDR)
+•192.168.0.0 - 192.168.255.255 (/16 is largest CIDR)
+
+The first step of any IP address subnetting is to figure out the subnet mask or how many bit network it is (or will be). For example, having a subnet mask of 255.255.240.0 is the same as saying "it is a 20 bit network. This is because there are 20 network (1s) bits and then 12 host (0s) bits, thus making the 255.255.240.0/20. This specific subnet can be used by all three private addressing schemes. However, if we choose a larger subnet in order to allow for more hosts, like /12 or larger, I will only be able to use the ones starting with 172 or 10. I will give an example of both.
+
+For this example let's figure out the /20 bit network mentioned above using the 192.168.*.* schema. 
+
+1) We know that there are 20 network bits, followed by 12 host bits, together completing 32 bits of an IP address. 
+	11111111.11111111.1111|0000.00000000
+	  255      255      240       0
+
+2) Count the amount of host bits, which is 12 in this case.
+	2^12 = 4096 (hosts in each subnet)
+
+3) The network hosts end on the 3rd octet, leaving 4 onto the hosts side. Counting from right to left, the zeros end on the 4th bit.
+	2^4 = 16 (the number we increment by)
+	256 / 16 = 16
+	In this subnet we can have 16 subnets, each capable of 4096 hosts (not actually)
+
+4) Starting from the smallest possible IP, we keep adding 16 to the third octet until we are at the largest amount possible (255 - 16).
+	192.168.0.1 - 192.168.15.254		192.168.15.255 (Broadcast Address)
+	192.168.16.1 - 192.168.31.254		192.168.31.255 (Broadcast Address)
+	...
+	...
+	...
+	192.168.240.1 - 192.168.255.254		192.168.255.255 (Broadcast Address)
+
+5) To make sure we did things correctly, we double check using logic.
+	4096 hosts * 16 subnets = 65,536 total hosts
+	** The actual yield of this network is not actually a total of 65,536 when 
+	we exclude a few addresses such as our network address (ex: 192.168.16.0), 
+	gateway address, and broadcast address. **
+
+
+
+To understand a bit more, we can repeat this same process on the 172.16.*.* scheme. To change things very slightly, we can make the CIDR to /22 instead.
+
+1) Figure out the subnet that matches to a 22 bit network.
+	11111111.11111111.111111|00.00000000
+	  255      255       252      0
+
+2) Count the host bits (10 in this case)
+	2^10 = 1024 (hosts in each subnet)
+
+3) Going from right to left, only 2 host bits in the octet of where the network bits end.
+	2^2 = 4 (the number we increment by)
+	256 / 4 = 64
+	64 Subnets
+
+4) Starting from the smallest possible IP, we keep adding 4 to the third octet until we are at the largest amount possible (255 - 4).
+	172.16.0.1 - 192.16.3.254		172.16.3.255 (Broadcast Address)
+	172.16.4.1 - 192.16.7.254		172.16.7.255 (Broadcast Address)
+	...
+	...
+	...
+	172.16.252.1 - 172.16.255.254		172.16.255.255 (Broadcast Address)
+
+** Notice how the second octet does not change. This could have been any number between 16 and 31. This number does not change because we are using a CIDR above /16. 
+/16 = 255.255.0.0, so the first two octets will never change. However, if we selected a CIDR between /12 and /15, the second octet would have to change across the different subnets. The next example done will depict this scenario. **
+
+5) Let's double check our solution.
+	1024 hosts * 64 subnets = 65,536
+
+
+
+The last example will hopefully help you understand why 172.16.*.* and 10.*.*.* addressing schemes exist. Let's do a /14 CIDR. By doing a /14 we are also deviating away from Class C and B to Class A.
+
+1) Figure out the subnet that matches to a 14 bit network.
+	11111111.11111100.00000000.00000000
+	  255      252       0         0
+
+2) Count the host bits (18 in this case)
+	2^18 = 262144 (hosts in each subnet)
+
+3) Going from right to left, only 2 host bits in the octet of where the network bits end.
+	2^2 = 4 (the number we increment by)
+	256 / 4 = 64
+	64 Subnets, BUT since we can only use .16 to .31, we only have 4
+
+4) All possible subnets:
+	172.16.0.1 - 172.19.255.254		172.19.255.255 (Broadcast Address)
+	172.20.0.1 - 172.23.255.254		172.23.255.255 (Broadcast Address)
+	172.24.0.1 - 172.27.255.254		172.27.255.255 (Broadcast Address)
+	172.28.0.1 - 172.31.255.254		172.31.255.255 (Broadcast Address)
+
+5) Class A
+	262,144 hosts * 64 subnets = 16777216 total hosts
+	Since we are using 4 subnets we only multiply by 4 
+	262,144 * 4 = 1,048,576 total
