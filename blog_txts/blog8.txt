@@ -1,0 +1,39 @@
+In order to find more information on websites and Public IP Addresses, there are a few commands you may want to consider within the command-line interface. These commands may help you understand nameserver, contact, general location, provider, and many more information. 
+
+(1) The first command is "whois." WHOIS is a query and response protocol which has stored information of registered users and domain names on various databases. So a simple whois command can use numerous databases/websites to search from and return the user with the appropriate data.
+- For example: whois csun.edu or whois 130.166.238.195 will return data such as registered
+	date, organization name, certificate provider, CIDRs they have reserved, and 			mailing address.
+
+- For domain names owned individually, it may show either your data or a generic privacy 		data of your domain provider such as, GoDaddy. If you happen to search your own public 		IP address, you will return data on your ISP. In my case, I see charter
+	communications information and how they have the entire block of 68.112.0.0/13
+	reserved.
+
+(2) The second command is "nslookup." Standing for name server lookup, this command performs exactly what it's named to do. The most common possible options are listed below:
+	• -q=a		To know the IP address
+	• -q=ns		To know about nameservers
+	• -q=any	To know all types of data
+	• -q=CNAME	To know the Canonical name
+	• -q=MB		To know the Mailbox domain name
+	• -q=MX		To know about the mail exchange server
+	• -q=SOA	To know about the Start-Of-Authority of a DNS Zone
+	• -q=WKS	To know about the Well Known service
+
+Example: "nslookup -q=ns csun.edu" will show us the server (DNS) used to perform the 			action (local DNS, which is google), then provide ns information of csun.
+
+	 "nslookup -q=mx csun.edu 208.67.222.222" will show us the mail exchange servers			of sun, but this time using opendns instead (208.67.222.222).
+	
+	 "nslookup -q=soa csun.edu will show us start of authority a.k.a zone data
+
+*Important things to note from these searches: CSUN uses mail exchange provided by pphosted, their landing page is on 130.166.238.195, and they use aws dns (Route 53).
+	
+
+(3) At third is the "dig" command. It stands for Domain Information Groper. This command is very similar to nslookup as they both provide information on domain names, IP Addresses, and DNS records. However, dig uses the operating system's local DNS resolver library to return data. Nslookup looks through "authoritative" servers providing the original source of data. For example, if you set type to ns or us -q=ns, it will use that server instead of the default DNS server of your local system.
+
+
+Dig commands can be ran similarly to how nslookup commands are and also return about the same information as well. However, the way you query and return data can sometimes be preferable over nslookup. For example, a simple "dig csun.edu" gives a bit more detailed information than a simple "nslookup csun.edu." We can combine this command with a "+short" to get just the A record which leads to the landing page of csun. Full command would be "dig csun.edu +short."
+
+Just like nslookup, we can add query types to our searches. For dig, this specification comes at the end.
+
+Examples: • dig csun.edu SOA
+	  • dig csun.edu MX
+	  • dig csun.edu ANY 
