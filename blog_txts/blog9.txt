@@ -1,0 +1,67 @@
+Having a database can help you with many tasks: Need to analyze excel data and make advanced queries? Need to fetch data and push to a backend server? Whatever the reason is, having a database can be a game changer. MySQL is one of the most popular and straightforward relational database management systems that use structured query language to do CRUD (Create, Read, Delete, Update) operations. With that said, let's go ahead and see the steps to take in order to create a simple iteration on a local machine (or vm/ec2 running linux).
+
+1) First step is always to check for updates
+	- sudo su
+	- apt-get update
+
+2) Install apache
+	- apt-get install apache2
+
+3) Install MySQL
+	- apt install mysql-server
+	- mysql_secure_installation
+	- systemctl start mysql
+	- systemctl enable mysql
+	- access the mysql shell by entering : mysql -u root -p
+		& inputting user/root information created
+	- FLUSH PRIVILEGES;
+
+4) Allow services through firewall
+	- ufw allow "Apache Full"
+	- ufw allow ssh
+	- ufw allow mysql
+	- ufw enable
+
+5) Install PHP
+	- apt install php libapache2-mod-php php-mysql
+
+6) Installing phpmyadmin
+	- apt install phpmyadmin php-mbstring php-gettext
+	- phpenmod mbstring
+	- systemctl restart apache2
+
+7) Now you may log on by visiting http://YourIP/phpmyadmin or via CLI MySQL Shell
+	-both will use the same credentials created in step 3
+
+8) Interact with databases: Up to the user to use online GUI or CLI
+	(will be using CLI in this tutorial)
+
+	- SHOW DATABASES; (will show you all available databases)
+	- CREATE DATABASE testing123;
+	- USE  testing123;
+	- CREATE TABLE Users (id smallint unsigned not null auto_increment, username
+		varchar(25) not null, constraint pk_example primary key (id));
+	- INSERT INTO Users (id, name) VALUES (null, 'JohnApple412');
+
+9) Visualize data!
+	- SELECT * FROM Users; (This will show us the entry we just made for example user 					JohnApple412)
+
+10) Alternatively we can write a simple php script to view the table on the web
+	- vim index.php
+	- &lt;?php
+	  $servername = "localhost";
+	  $username = "root";
+	  $password = "your_password";
+	  $db_name = "testing123";
+	  $conn = new mysqli($servername, $username, $password, $db_name);
+	  $sql = "SELECT Users FROM testing123";
+	  $result = $conn->query($sql);
+	  if ($result->num_rows > 0) {
+	  echo json_encode($result->fetch_assoc());
+	  exit;
+	  }
+	  ?>
+
+11) To Delete tables and databases:
+	- DROP TABLE table_name;
+	- DROP DATABASE database_name;
