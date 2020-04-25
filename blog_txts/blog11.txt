@@ -1,0 +1,54 @@
+Using the Github CLI as a new user is always daunting and most users try to avoid it as much as they can. Some users like myself even preferred to use the web interface as long as they can to avoid mistakes. This all changes when you officially learn how to be practical and efficient with the CLI! 
+Here is a how-to blog & cheat sheet to solve all your GitHub concerns!
+
+1) First things first, we need to install GitHub on our machines.
+	macOS: $ brew install github/gh/gh
+	
+	windows: $ scoop bucket add github-gh https://github.com/cli/scoop-gh.git
+		 $ scoop install gh
+			or
+		 $ choco install gh
+
+	linux: $ sudo yum install git-all
+			or
+	       $ sudo apt-get install git-all
+
+2) Once it is downloaded you may initialize a directory/project for use
+	navigate to desired directory
+	$ git init
+
+3) Make sure a hidden file called .gitignore is created - If not, go ahead and create one
+	$ touch .gitignore
+	Copy and paste the latest and greatest list of files and folders you want to 		ignore into the .gitignore file.
+
+4) You can add a README.md by creating one inside of terminal or editing an existing one.	$ vim README.md
+
+
+5) Check for any changes that have been made to files since your last commit
+	$ git status
+
+6) Apply changes to your local Git repository with a message specifying changes you made.
+	$ git commit -m "Updated file2" 
+
+7) Link to a remote repository 
+	- For ssh, you must add your ssh key
+		git@github.com:myusername/reponame.git
+	- For https 
+		git push origin master
+		<enter your username at promt>
+		<enter your password at promt>
+
+8) HTTPS
+	$ git remote add origin https://github.com/yourUserName/yourRepoName.git
+	$ git push -u origin master
+
+9) Sync local repo with remote repo
+	After making all desired changes locally
+		$ git push
+
+10) If a collaborator has made changes, you can update local repo by running
+	$ git pull
+
+
+11) You can also clone repositories by running
+	$ git clone https://RepositoryUrl
